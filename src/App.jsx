@@ -1,14 +1,17 @@
 import React from 'react';
+import { Switch, Route, NavLink } from 'react-router-dom';
+
 import './App.css';
-import TodoForm from './TodoForm';
+import Home from './Home';
 import TaskList from './TaskList';
+import TodoForm from './TodoForm';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       input: '',
-      tasks: [],
+      tasks: []
     };
 
     this.addNewTask = this.addNewTask.bind(this);
@@ -22,9 +25,9 @@ class App extends React.Component {
         ...this.state.tasks,
         {
           name: taskName,
-          complete: false,
-        },
-      ],
+          complete: false
+        }
+      ]
     });
   }
 
@@ -33,7 +36,7 @@ class App extends React.Component {
       if (currentIndex === indexOfTaskToToggle) {
         return {
           ...task,
-          complete: !task.complete,
+          complete: !task.complete
         };
       }
       return task;
@@ -55,11 +58,38 @@ class App extends React.Component {
     return (
       <div className="App">
         <TodoForm onNewTask={this.addNewTask} />
-        <TaskList
-          tasks={this.state.tasks}
-          toggleCompleteStatus={this.handleTaskToggle}
-          deleteTask={this.handleTaskDelete}
-        />
+        <div className="App__links">
+          <NavLink exact className="App__link" to="/">
+            Home
+          </NavLink>
+          <NavLink className="App__link" to="/incomplete">
+            To-dos
+          </NavLink>
+          <NavLink className="App__link" to="/complete">
+            To-dones
+          </NavLink>
+        </div>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/incomplete">
+            <TaskList
+              name="To-dos"
+              tasks={this.state.tasks}
+              display="incomplete"
+              toggleCompleteStatus={this.handleTaskToggle}
+              deleteTask={this.handleTaskDelete}
+            />
+          </Route>
+          <Route path="/complete">
+            <TaskList
+              name="To-dones"
+              tasks={this.state.tasks}
+              display="complete"
+              toggleCompleteStatus={this.handleTaskToggle}
+              deleteTask={this.handleTaskDelete}
+            />
+          </Route>
+        </Switch>
       </div>
     );
   }
