@@ -7,13 +7,8 @@ export default class Task extends Component {
 
     return (
       <div className="Task">
-        <div className={`Task__name ${task.complete ? 'is-complete' : ''}`}>
-          {task.name}
-        </div>
-        <button
-          onClick={toggleCompleteStatus}
-          className="Task__button Task__button--toggle"
-        >
+        <div className={`Task__name ${task.complete ? 'is-complete' : ''}`}>{task.name}</div>
+        <button onClick={toggleCompleteStatus} className="Task__button Task__button--toggle">
           {!task.complete ? (
             <span role="img" aria-label="Complete">
               ✅
@@ -24,10 +19,7 @@ export default class Task extends Component {
             </span>
           )}
         </button>
-        <button
-          onClick={deleteTask}
-          className="Task__button Task__button--delete"
-        >
+        <button onClick={deleteTask} className="Task__button Task__button--delete">
           <span role="img" aria-label="Delete">
             💩
           </span>

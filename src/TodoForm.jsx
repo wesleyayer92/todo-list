@@ -17,8 +17,10 @@ export default class TodoForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onNewTask(this.state.value);
-    this.setState({ value: '' });
+    if (this.state.value !== '') {
+      this.props.onNewTask(this.state.value);
+      this.setState({ value: '' });
+    }
   }
 
   render() {
