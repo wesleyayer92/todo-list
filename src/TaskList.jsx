@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Task from './Task';
+import { toggleTodo, deleteTodo } from './redux/actions/todoActions';
 
-export default class TaskList extends Component {
+import { connect } from 'react-redux';
+
+class TaskList extends Component {
   render() {
     return (
       <div>
@@ -45,3 +48,19 @@ export default class TaskList extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    tasks: state.tasks
+  }
+}
+
+const mapDispatchToProps = {
+  toggleCompleteStatus: toggleTodo,
+  deleteTask: deleteTodo,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TaskList)
